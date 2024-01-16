@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8000:3000"
+    depends_on:
+      - backend
+    networks:
+      - my_network
+    volumes:
+      - ./frontend/src:/frontend/src
+      - "/frontend/node_modules"
+
+
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+    - "8080:8080"
+    networks:
+      - my_network
+    volumes:
+      - ./backend:/backendapp
+
+
+networks:
+  my_network:
+    driver: bridge
